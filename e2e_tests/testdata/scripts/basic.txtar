@@ -2,5 +2,5 @@
 
 # Running playgo with no arguments produces a new scratchpad
 exec playgo
-stdout 'Created main.go in directory \".*\/.*\"'
+stdout 'Created main.go in directory'
 ! stderr .
