@@ -21,4 +21,6 @@ more consistent location later on, in a new version, likely under
 
 > Note: Play-Go requires that you have Go installed and available on your `$PATH`.
 
+## License
+
 This project is licensed under the terms of the MIT license.
