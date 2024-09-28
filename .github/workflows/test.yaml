@@ -18,14 +18,14 @@ jobs:
         version:
         - "1.22"
         - "1.23"
-      runs-on: ${{ matrix.os }}
-      steps:
-      - uses: actions/checkout@v4
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: ${{ matrix.version }}
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: ${{ matrix.version }}
 
-      - name: Test
-        run: go test -v ./...
+    - name: Test
+      run: go test -v ./...
