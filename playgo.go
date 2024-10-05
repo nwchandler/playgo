@@ -9,11 +9,23 @@ import (
 )
 
 func Main() int {
+	// set up output, especially stderr, so we can use it in preparation steps
 	init := Initializer{
-		Stdout:    os.Stdout,
-		Stderr:    os.Stderr,
-		Directory: "scratches",
+		Stdout: os.Stdout,
+		Stderr: os.Stderr,
 	}
+
+	dataDir := os.Getenv("XDG_DATA_HOME")
+	if dataDir == "" {
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			fmt.Fprintln(init.Stderr, "unable to identify either $XDG_DATA_HOME or home directory; using the current directory instead")
+		} else {
+			dataDir = filepath.Join(homeDir, ".local", "share")
+		}
+	}
+	init.Directory = filepath.Join(dataDir, "scratches")
+
 	err := init.Init()
 	if err != nil {
 		return 1
@@ -49,8 +61,12 @@ func (i Initializer) Init() error {
 	}
 
 	cmd := exec.Command("go", "mod", "init", i.Module)
-	path := filepath.Join(i.Directory, i.Module)
-	err := os.MkdirAll(path, os.ModePerm)
+	path, err := filepath.Abs(filepath.Join(i.Directory, i.Module))
+	if err != nil {
+		fmt.Fprintln(i.Stderr, err.Error())
+		return err
+	}
+	err = os.MkdirAll(path, os.ModePerm)
 	if err != nil {
 		fmt.Fprintln(i.Stderr, err.Error())
 		return err
