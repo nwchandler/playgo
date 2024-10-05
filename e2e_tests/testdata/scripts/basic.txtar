@@ -4,6 +4,7 @@
 # XDG_DATA_HOME takes priority
 env XDG_DATA_HOME=$WORK/xdg_data_home
 env HOME=$WORK/home
+[windows] env USERPROFILE=$HOME
 
 ! exists $WORK/xdg_data_home/scratches
 ! exists $WORK/home/.local/share/scratches
@@ -26,6 +27,7 @@ rm $WORK/scratches
 # $HOME/.local/share is used if XDG_DATA_HOME is unset
 env XDG_DATA_HOME=
 env HOME=$WORK/home
+[windows] env USERPROFILE=$HOME
 
 ! exists $WORK/xdg_data_home/scratches
 ! exists $WORK/home/.local/share/scratches
@@ -48,6 +50,7 @@ rm $WORK/scratches
 # local directory is used if neither XDG_DATA_HOME nor HOME are set
 env XDG_DATA_HOME=
 env HOME=
+[windows] env USERPROFILE=$HOME
 
 ! exists $WORK/xdg_data_home/scratches
 ! exists $WORK/home/.local/share/scratches
